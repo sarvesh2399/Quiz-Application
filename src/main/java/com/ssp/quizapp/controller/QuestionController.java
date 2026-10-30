@@ -13,41 +13,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssp.quizapp.Question;
+import com.ssp.quizapp.model.Question;
 import com.ssp.quizapp.service.QuestionService;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-@RestController 
+@RestController
 @RequestMapping("question")
 public class QuestionController {
 
-    @Autowired 
+    @Autowired
     QuestionService questionService;
-    
-    @GetMapping ("allQuestions")
-    public ResponseEntity<List<Question>> getAllQuestions(){
+
+    @GetMapping("allQuestions")
+    public ResponseEntity<List<Question>> getAllQuestions() {
         // return "All Questions";
         // return questionService.getAllQuestions();
+        // List<Question> questions = questionService.getAllQuestions();
+
+        // return ResponseEntity.ok(questions);
         return questionService.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
+    // http://localhost:8080/question/category/java
     public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
         return questionService.getQuestionsByCategory(category);
 
     }
+
     @PostMapping("add")
-    public ResponseEntity<String> addQuestion(@RequestBody Question question){
+    public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         return questionService.addQuestion(question);
 
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteById(@PathVariable int id){
+    // http://localhost:8080/question/delete/2
+    public String deleteById(@PathVariable int id) {
         return questionService.deleteById(id);
 
     }
-    
-    
+
 }
